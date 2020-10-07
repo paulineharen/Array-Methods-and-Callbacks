@@ -58,7 +58,7 @@ function getFinals(data) {
  
 function getYears(cb) {
         
-    let finalYears = getFinals(fifaData);
+    const finalYears = getFinals(fifaData);
           
     const filteredYears = finalYears.map(item => item.Year);
       console.log(filteredYears);
@@ -67,17 +67,30 @@ function getYears(cb) {
   getYears(getFinals);
 
 
-getYears();
+/* Task 4: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` 
+and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-/* Task 4: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
 
-    /* code here */
+function getWinners(cb) {
 
-};
-
-getWinners();
+    const wins = getFinals(fifaData);
+    
+    
+      const filteredWinners = wins.map ((condition) => {
+         if (condition['Home Team Goals'] > condition['Away Team Goals']){
+                    return(`Home Win: ${condition['Home Team Name']}`);
+                }
+                else if (condition['Home Team Goals'] < condition['Away Team Goals']){
+                    return(`Away Win: ${condition['Away Team Name']}`);
+                }
+                else{
+                   return(`Tie: ${condition['Away Team Name']} and ${condition['Home Team Name']}`);
+                }
+            });
+            return(filteredWinners);
+        };
+    getWinners(getFinals);
 
 /* Task 5: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
